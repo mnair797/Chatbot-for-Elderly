@@ -1,0 +1,21 @@
+import pandas as pd 
+
+dataset=pd.read_csv('Chatbot_Mood.csv')
+print (dataset.head)
+print (dataset.dtypes)
+num_bins = 30
+
+
+import matplotlib.pyplot as plt
+
+#Create a quick bar chart - method 1
+
+mood = dataset["Response"].value_counts()
+print(mood)
+print(type(mood))
+names = list(mood.index)
+values = list(mood.values)
+print(names)
+print(values)
+plt.bar(names, values)
+plt.show()
