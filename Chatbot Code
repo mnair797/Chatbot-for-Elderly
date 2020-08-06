@@ -15,7 +15,7 @@ def get_prediction(data={"Mood":"I'm mad"}):
   return response
 
 
-print ("Hello, my name is Mitiku and I am a chatbot.")
+print ("Hello, my name is Saathee and I am a chatbot.")
 import random
 List = ["How is your day so far?", "What was the happiest moment of your life? ", "What are you most proud of?", "Is there anything you most regret in your life?" , "What or who do you find most annoying?", "Tell me about what you did today", "What was school like for you as a child? ", "How would you like to be remembered? ", "Describe your childhood in a few words", "You can tell me anything!"]
 
@@ -27,7 +27,7 @@ ai_encoded_response = json.loads(json.loads(ai_response)['body'])['predicted_lab
 
 sad_arr=["It seems to me as if you are sad. Is there anything you would like to talk about?", "On a scale from 1-10, how worried/upset/mad/scared/hurt are you about this?", "How often are you feeling upset about it?", "What would make this a little better?", "What do you most wish was different?", "Would telling someone else help make you feel better. If so, who and what would you tell them"]
 angry_arr=["On a scale from 1-10, how angry are you about this?", "Describe the situation to me", "What did the other person do that made you angry?", "For how long have you been angry", "What’s the problem, and whose problem is it?", "Is it possible to express your anger without attacking or becoming defensive? If so, how will you do it?"]
-happy_arr=["On a scale from 1-10, how happy are you about this?", "What are you happy about?", "I'm happy if your happy", "What are the three most positive things that have happened to you recently?", "What specifically is great about today", "What can you do to make yourself happy every day", "Happiness is the greatest gift a great chatbot (named Mitiku) said"]
+happy_arr=["On a scale from 1-10, how happy are you about this?", "What are you happy about?", "I'm happy if your happy", "What are the three most positive things that have happened to you recently?", "What specifically is great about today", "What can you do to make yourself happy every day", "Happiness is the greatest gift a great chatbot (named Saathee) said"]
 jealous_arr=["Why are you jealous of this person or thing?", "Why are you comparing yourself with others", "What are you specifically jealous of", "Are you jealous of the person or just angry?", "Try to look at the bigger picture", "On a scale from 1-10, how jealous are you about this?"]
 lonely_arr=["Do you get excited or scared when meeting new people?", "Why are you feeling lonely", "Who do you miss?", "Who do you wish was with you right now and why?", "On a scale from 1-10, how lonely are you?", "Is there anything I can do to make sure you are not lonely", "What exactly do you miss?"]
 sad=0
