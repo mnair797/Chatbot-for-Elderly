@@ -1,0 +1,150 @@
+import requests
+import base64
+import json
+from replit import audio
+
+def main():
+  source = audio.play_file('music.mp3')
+
+
+def get_prediction(data={"Mood":"I'm mad"}):
+  url = 'https://l47syleshe.execute-api.us-east-1.amazonaws.com/Predict/8c4c67d7-e28b-4ebb-814b-5e5d11990a44'
+  r = requests.post(url, data=json.dumps(data))
+  response = getattr(r,'_content').decode("utf-8")
+  #print(response)
+  return response
+
+
+print ("Hello, my name is Mitiku and I am a chatbot.")
+import random
+List = ["How is your day so far?", "What was the happiest moment of your life? ", "What are you most proud of?", "Is there anything you most regret in your life?" , "What or who do you find most annoying?", "Tell me about what you did today", "What was school like for you as a child? ", "How would you like to be remembered? ", "Describe your childhood in a few words", "You can tell me anything!"]
+
+user_response = input(random.choice(List))
+
+ai_response = get_prediction(data={"Mood":user_response})
+ai_encoded_response = json.loads(json.loads(ai_response)['body'])['predicted_label']
+
+
+sad_arr=["It seems to me as if you are sad. Is there anything you would like to talk about?", "On a scale from 1-10, how worried/upset/mad/scared/hurt are you about this?", "How often are you feeling upset about it?", "What would make this a little better?", "What do you most wish was different?", "Would telling someone else help make you feel better. If so, who and what would you tell them"]
+angry_arr=["On a scale from 1-10, how angry are you about this?", "Describe the situation to me", "What did the other person do that made you angry?", "For how long have you been angry", "What’s the problem, and whose problem is it?", "Is it possible to express your anger without attacking or becoming defensive? If so, how will you do it?"]
+happy_arr=["On a scale from 1-10, how happy are you about this?", "What are you happy about?", "I'm happy if your happy", "What are the three most positive things that have happened to you recently?", "What specifically is great about today", "What can you do to make yourself happy every day", "Happiness is the greatest gift a great chatbot (named Mitiku) said"]
+jealous_arr=["Why are you jealous of this person or thing?", "Why are you comparing yourself with others", "What are you specifically jealous of", "Are you jealous of the person or just angry?", "Try to look at the bigger picture", "On a scale from 1-10, how jealous are you about this?"]
+lonely_arr=["Do you get excited or scared when meeting new people?", "Why are you feeling lonely", "Who do you miss?", "Who do you wish was with you right now and why?", "On a scale from 1-10, how lonely are you?", "Is there anything I can do to make sure you are not lonely", "What exactly do you miss?"]
+sad=0
+angry=0
+lonely=0
+happy=0
+jealous=0
+asked=[]
+for i in range (5):
+  if ai_encoded_response=="sad":
+    sad+=1
+    x=random.choice(sad_arr)
+    print (x)
+    if x=="On a scale from 1-10, how hurt/sad are you about this?":
+      response=int(input())
+      if response>5:
+          ai_encoded_response="sad"
+    else:
+      response=input()
+      ai_response = get_prediction(data={"Mood":response})
+      ai_encoded_response = json.loads(json.loads(ai_response)['body'])['predicted_label']
+  if ai_encoded_response=="angry":
+    angry+=1
+    x=random.choice(angry_arr)
+    print (x)
+    asked.append(x)
+    if x=="On a scale from 1-10, how angry are you about this?":
+      response=int(input())
+      if response>5:
+        ai_encoded_response="angry"
+    else:
+      response=input()
+      ai_response = get_prediction(data={"Mood":response})
+      ai_encoded_response = json.loads(json.loads(ai_response)['body'])['predicted_label']
+  if ai_encoded_response=="happy":
+    happy+=1
+    x=random.choice(happy_arr)
+    print (x)
+    asked.append(x)
+    if x=="On a scale from 1-10, how happy are you about this?":
+      response=int(input())
+      if response>5:
+        ai_encoded_response="happy"
+    else:
+      response=input()
+      ai_response = get_prediction(data={"Mood":response})
+      ai_encoded_response = json.loads(json.loads(ai_response)['body'])['predicted_label']
+  if ai_encoded_response=="jealous":
+    jealous+=1
+    x=random.choice(jealous_arr)
+    print (x)
+    asked.append(x)
+    if x=="On a scale from 1-10, how jealous are you about this?":
+      response=int(input())
+      if response>5:
+        ai_encoded_response="jealous"
+    else:
+      response=input()
+      ai_response = get_prediction(data={"Mood":response})
+      ai_encoded_response = json.loads(json.loads(ai_response)['body'])['predicted_label']
+  if ai_encoded_response=="lonely":
+    lonely+=1
+    x=random.choice(lonely_arr)
+    print (x)
+    asked.append(x)
+    if x=="On a scale from 1-10, how lonely are you?":
+      response=int(input())
+      if response>5:
+        ai_encoded_response="lonely"
+    else:
+      response=input()
+      ai_response = get_prediction(data={"Mood":response})
+      ai_encoded_response = json.loads(json.loads(ai_response)['body'])['predicted_label']
+    
+emotion=max(angry, lonely, jealous, sad, happy)
+jokes=["What do you call a guy with a rubber toe? Roberto", "What did the grape say when the elephant stepped on it? Nothing, it just let out a little wine.", "Why do birds fly south for the winter? It's to far to walk", "Why do crabs never give to charity? They're too shellfish","Does an apple a day keep the doctor away?  Only if you aim it well enough.", "Two windmills are standing in a wind farm. One asks the other, What kind of music do you like? The other answers, I'm a big metal fan.", "What is the best day to go to the beach? Sunday, of course!", "How does a dog stop a video? By hitting the paws button!", "What's a balloon's least favorite type of music? Pop" "How does NASA organize a party?They planet.", "Why were they called the Dark Ages? Because there were lots of knights."]
+puns=["I have a few jokes about unemployed people, but none of them work", "I Renamed my iPod The Titanic, so when I plug it in, it says The Titanic is syncing.", "Did you hear about the guy whose whole left side was cut off? He’s all right now", "I can’t believe I got fired from the calendar factory. All I did was take a day off", "I went to buy some camouflage trousers yesterday but couldn't find any", "I tried to sue the airline for losing my luggage. I lost my case", "Jill broke her finger today, but on the other hand she was completely fine", "What did the janitor say when he jumped out of the closet? SUPPLIES!", "Let me tell you about my grandfather. He was a good man, a brave man. He had the heart of a lion, and a lifetime ban from the zoo", "My dad, unfortunately, passed away when we couldn’t remember his blood type… His last words to us were, Be positive!", "I wasn’t originally going to get a brain transplant, but then I changed my mind", "Which country’s capital has the fastest-growing population? Ireland. Every day it’s Dublin.", "What are the strongest days of the week? Saturday and Sunday, the rest are weekdays", "I hate how funerals are always at 9 a.m. I’m not really a mourning person", "The other day I tried to make a chemistry joke, but got no reaction"]
+jealous_quote=["Jealousy only eats your beauty. Have more faith in yourself, you got something else others don't", "That awesome moment when you realize tries to make you jealous ... and you realize you shouldn't care", "Stop being jealous of people in their winning season. You don't know what they lost in their losing season"]
+
+if angry==emotion:
+  if emotion==1 or emotion==2:
+    print ("Here's a joke to make you feel better")
+    print (random.choice(jokes))
+  if emotion==3 or emotion==4:
+    print ("I would reccomend breathing and taking a while to reflect back on the situation. Inhale and exhale deeply 3 or 4 times in a row. Count slowly to four as you inhale. Count slowly to eight as you exhale. Focus on feeling the air move in and out of your lungs.")
+  if emotion==5:
+    print ("I would reccomend listening to these videos: https://www.youtube.com/watch?v=1ZYbU82GVz4 or https://www.youtube.com/watch?v=3NycM9lYdRI to calm yourself down. In addition, researchers have shown that meditation is a great way to relax")
+if sad==emotion:
+  if emotion==1:
+    print ("At the end of the day, remind yourself that you did the best you could today, and that is good enough. -Buddha")
+  if emotion==2 or emotion==3:
+    print ("Looking at memes is one of the best ways to get your mind off of distrubing things. https://cheezburger.com/3441669/35-funny-memes-guaranteed-to-make-you-laugh is webiste with lots of funny memes")
+  if emotion==5:
+    print ("People love music for much the same reason they're drawn to thing, according to new research. When you listen to tunes that move you, the study found, your brain releases dopamine, a chemical involved in both motivation and addiction. I suggest you talk to tell a loved one how you are feeling. To help with sadness I reccomend you listen to  Someone Like You by Adele or Stay With Me.")
+if happy==emotion:
+  if emotion==1 or emotion==2:
+    print ("Here's a joke to make you feel happier")
+    print (random.choice(jokes))
+  if emotion==3:
+    print ("Here are my favorite puns!")
+    print (random.choice(puns))
+  if emotion==4 or emotion==5:
+    print ("Wow! I've never seen someone this happy. Do a little happy dance for me. My favorite are the dab and the classical turn in a circle")
+if emotion==jealous:
+  if emotion==1 or emotion==2:
+    print ("Shake the jealousy off")
+    main()
+  if emotion==3 or emotion==4:
+    print ("Here are some quotes about jealousy")
+    print (random.choice(jealous_quote))
+  if emotion==5:
+    print ("Jealousy will not push you forward. Focus on your achievements and not compare to yourself to others.")
+if emotion==lonely:
+  if emotion==5:
+    print ("There are few things more comforting than a pet. Numerous studies show that animals make us happier, and leave us feeling more fulfilled and relaxed. They can be wonderful social ice breakers, and their sincere, unfiltered affection can allay feelings of loneliness like nothing else. I would reccomend you get a pet to keep you company if your children (or grandchildren) live far or are busy.")
+  if emotion==1 or emotion==2:
+    print ("Here are my favorite puns!")
+    print (random.choice(puns))
+  if emotion==3 or emotion==4:
+     print ("Reach out to family friends through video call. There are other comforting things such as pets as well")
